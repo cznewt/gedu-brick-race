@@ -1,16 +1,16 @@
 # GeekEdu Brick Race: Wukong cars
 
-Four brick cars of the [GeekEdu Brick Race](https://brick-race.geekedu.eu/en/), each on an
+Four brick cars of the [GeekEdu Brick Race](https://legorace.geekedu.eu/en/), each on an
 ElecFreaks Wukong board with a BBC micro:bit, written as LDraw models in Python. The builder turns
 them into building booklets and BrickLink Studio files. Each car also has its micro:bit firmware
 for the phone joystick.
 
 | | Model | Motors on the Wukong board | Steps | Parts |
 |---|---|---|---|---|
-| <img src="docs/images/wukong-mecanum.png" width="180" alt="Wukong mecanum racer"> | **wukong-mecanum**: the mecanum racer; drives, turns on the spot and slides sideways | 4 Geekservo 360° servos: S0 left front, S1 left rear, S2 right front, S3 right rear | 27 | 135 |
-| <img src="docs/images/wukong-tank-2-motors.png" width="180" alt="Wukong tank with two motors"> | **wukong-tank-2-motors**: the racer's body on tracks, driven at the back | 2 Geekservo 360° servos: S0 left, S1 right | 30 | 187 |
-| <img src="docs/images/wukong-tank-4-motors.png" width="180" alt="Wukong tank with four motors"> | **wukong-tank-4-motors**: the racer on tracks, all four motors driving | 4 Geekservo 360° servos: S0 left front, S1 left rear, S2 right front, S3 right rear | 28 | 189 |
-| <img src="docs/images/wukong-tank-4-motors-geared.png" width="180" alt="Wukong tank with four motors, geared 2:1"> | **wukong-tank-4-motors-geared**: the four-motor tank geared up 2:1 (a 16-tooth gear on each servo turns an 8-tooth one on the sprocket's axle): about the mecanum car's speed, half the pull. A prototype: the gears mesh 0.65 mm wider than LEGO's standard spacing | 4 Geekservo 360° servos: S0 left front, S1 left rear, S2 right front, S3 right rear | 30 | 219 |
+| <img src="docs/images/wukong-mecanum.png" width="180" alt="Wukong mecanum racer"> | **wukong-mecanum**: the mecanum racer; drives, turns on the spot and slides sideways | 4 Geekservo 360° servos: S0 left front, S1 left rear, S2 right front, S3 right rear | [27, online](https://legorace.geekedu.eu/en/models/wukong-mecanum-racer/) · [PDF](https://github.com/cznewt/gedu-brick-race/releases/latest/download/wukong-mecanum-instructions.pdf) | 135 |
+| <img src="docs/images/wukong-tank-2-motors.png" width="180" alt="Wukong tank with two motors"> | **wukong-tank-2-motors**: the racer's body on tracks, driven at the back | 2 Geekservo 360° servos: S0 left, S1 right | [30, online](https://legorace.geekedu.eu/en/models/wukong-tank-2servo/) · [PDF](https://github.com/cznewt/gedu-brick-race/releases/latest/download/wukong-tank-2-motors-instructions.pdf) | 187 |
+| <img src="docs/images/wukong-tank-4-motors.png" width="180" alt="Wukong tank with four motors"> | **wukong-tank-4-motors**: the racer on tracks, all four motors driving | 4 Geekservo 360° servos: S0 left front, S1 left rear, S2 right front, S3 right rear | [28, online](https://legorace.geekedu.eu/en/models/wukong-tank-4servo/) · [PDF](https://github.com/cznewt/gedu-brick-race/releases/latest/download/wukong-tank-4-motors-instructions.pdf) | 189 |
+| <img src="docs/images/wukong-tank-4-motors-geared.png" width="180" alt="Wukong tank with four motors, geared 2:1"> | **wukong-tank-4-motors-geared**: the four-motor tank geared up 2:1 (a 16-tooth gear on each servo turns an 8-tooth one on the sprocket's axle): about the mecanum car's speed, half the pull. A prototype: the gears mesh 0.65 mm wider than LEGO's standard spacing. The gears go in at steps 25-27 | 4 Geekservo 360° servos: S0 left front, S1 left rear, S2 right front, S3 right rear | [30, online](https://legorace.geekedu.eu/en/models/wukong-tank-4servo-geared/) · [PDF](https://github.com/cznewt/gedu-brick-race/releases/latest/download/wukong-tank-4-motors-geared-instructions.pdf) | 219 |
 
 ## Download
 
@@ -26,7 +26,8 @@ Each [release](https://github.com/cznewt/gedu-brick-race/releases) has these fil
   `MICROBIT` drive.
 - `<model>.zip`: the files above except the firmware, plus the cover and every step picture.
 
-You can also turn the cars in 3D and build them step by step on [brick-race.geekedu.eu](https://brick-race.geekedu.eu/en/models/).
+Every car's building steps are also online, one picture per step, on [the challenge's site](https://legorace.geekedu.eu/en/models/)
+(its *Steps* link in the table above), where you can turn it in 3D as well. The *PDF* link is the latest release's booklet.
 
 ## Drive it
 
