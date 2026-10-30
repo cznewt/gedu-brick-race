@@ -59,6 +59,34 @@
 
 CI picks the model up by its JSON file; no workflow change is needed.
 
+## Firmware
+
+`firmware/<slug>/` is one MakeCode project per car, with the same slug as its model:
+- `main.ts`;
+- `pxt.json`:
+  - `core`, `bluetooth` and ElecFreaks `wuKong` pinned at v1.6.0, the version the GeekEdu editor
+    bundles;
+  - no `radio`, which can't run beside Bluetooth;
+  - `microbit-dal.bluetooth` `open: 1`, `whitelist: 0`: *No Pairing Required*, so the phone joystick
+    connects without pairing.
+- `mkc.json` pins the editor the CLI compiles against: `makecode.microbit.org/v8`, the line the
+  GeekEdu editor runs.
+- `README.md`.
+
+**Source of truth: the GeekEdu MakeCode editor.** The drivers are written and released there, and
+each one scrolls the editor release it comes from.
+- `firmware/sync.py` copies the current Bluetooth drivers from `/docs/projects/<name>.md`: the
+  program from the `blocks` section.
+- It stops if a driver's extensions are no longer `bluetooth` + `wuKong`; then update `pxt.json`.
+
+**Build:**
+- `firmware/build.sh` runs `npx makecode build` in each folder: the MakeCode CLI with the native
+  code from MakeCode's compile service.
+- It copies `built/binary.hex`, a universal hex for V1 and V2, to `dist/<slug>/<slug>-firmware.hex`.
+- The CLI's hex has no MakeCode source in it, unlike a download from the editor.
+- Check a build: in the V2 part, look for the UART and event services' base UUIDs
+  (`6e400000-…`, `e95d0000-…`) and the release string.
+
 ## CI and releases
 
 `.github/workflows/build.yml` runs on every push to `main`, on pull requests, by hand and on
@@ -66,8 +94,10 @@ CI picks the model up by its JSON file; no workflow change is needed.
 - **`models`** lists `models/*.json`.
 - **`build`** builds each model in its own job (Python 3.12, Playwright's Chromium, DejaVu fonts),
   caches the LDraw parts and uploads `dist/` as a workflow artifact named after the model.
+- **`firmware`** (Node.js 20) builds the three firmware hex files.
 - **`release`** runs only on a `v*` tag. It collects the artifacts and creates the GitHub Release
-  with `<slug>.zip`, `-studio.zip`, `-instructions.pdf`, `-bricklink.xml` and `-parts.csv`.
+  with `<slug>.zip`, `-studio.zip`, `-instructions.pdf`, `-bricklink.xml`, `-parts.csv` and
+  `-firmware.hex`.
 
 ```sh
 git tag v0.2.0 && git push origin v0.2.0

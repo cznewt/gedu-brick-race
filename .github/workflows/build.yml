@@ -1,5 +1,5 @@
-# Build every model (one job each) and keep its dist/ as a workflow artifact; a v* tag also
-# attaches the downloads to a GitHub Release.
+# Build every model (one job each) and the cars' firmware, keep dist/ as workflow artifacts; a v*
+# tag also attaches the downloads to a GitHub Release.
 name: build
 
 on:
@@ -55,9 +55,24 @@ jobs:
           path: dist/
           if-no-files-found: error
 
+  firmware:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      # MakeCode CLI: the micro:bit editor each mkc.json names, native code from MakeCode's compile service
+      - run: sh firmware/build.sh
+      - uses: actions/upload-artifact@v4
+        with:
+          name: firmware
+          path: dist/
+          if-no-files-found: error
+
   release:
     if: startsWith(github.ref, 'refs/tags/v')
-    needs: build
+    needs: [build, firmware]
     runs-on: ubuntu-latest
     permissions:
       contents: write
@@ -70,4 +85,5 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: |
           gh release create "$GITHUB_REF_NAME" --repo "$GITHUB_REPOSITORY" --title "$GITHUB_REF_NAME" --generate-notes \
-            dist/*.zip dist/*/*-studio.zip dist/*/*-instructions.pdf dist/*/*-bricklink.xml dist/*/*-parts.csv
+            dist/*.zip dist/*/*-studio.zip dist/*/*-instructions.pdf dist/*/*-bricklink.xml dist/*/*-parts.csv \
+            dist/*/*-firmware.hex

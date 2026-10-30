@@ -2,7 +2,8 @@
 
 Three LEGO cars of the [GeekEdu LEGO Racing Challenge](https://legorace.geekedu.eu/en/), each on an
 ElecFreaks Wukong board with a BBC micro:bit, written as LDraw models in Python. The builder turns
-them into building booklets and BrickLink Studio files.
+them into building booklets and BrickLink Studio files. Each car also has its micro:bit firmware
+for the phone joystick.
 
 | | Model | Motors on the Wukong board | Steps | Parts |
 |---|---|---|---|---|
@@ -20,17 +21,23 @@ Each [release](https://github.com/cznewt/gedu-lego-racing/releases) has these fi
 - `<model>-instructions.pdf`: the printable A4 building booklet.
 - `<model>-bricklink.xml`: a BrickLink wanted list of its LEGO parts.
 - `<model>-parts.csv`: every part with its colour and quantity, and a shop link for the electronics.
-- `<model>.zip`: all of the above plus the cover and every step picture.
+- `<model>-firmware.hex`: the car's micro:bit program, one file for V1 and V2. Copy it onto the
+  `MICROBIT` drive.
+- `<model>.zip`: the files above except the firmware, plus the cover and every step picture.
 
 You can also turn the cars in 3D and build them step by step on [legorace.geekedu.eu](https://legorace.geekedu.eu/en/models/).
 
 ## Drive it
 
-The programs are in the [GeekEdu MakeCode editor](https://makecode-microbit.geekedu.eu/), on the
-home page's *LEGO Racing Challenge* row:
-1. Flash a car's program onto its micro:bit.
+1. Flash the car's program onto its micro:bit. Either copy `<model>-firmware.hex` from a release
+   onto the `MICROBIT` drive, or download it from the
+   [GeekEdu MakeCode editor](https://makecode-microbit.geekedu.eu/) (its *LEGO Racing Challenge*
+   row), where you can also change it.
 2. Drive it from a phone with the [phone joystick](https://makecode-microbit.geekedu.eu/joystick/):
    Chrome on Android, Bluefy on iPhone.
+
+The sources are in [`firmware/`](firmware/README.md), one MakeCode project per car, with its ports,
+settings and motor test.
 
 | Model | Program | Wiring |
 |---|---|---|
@@ -49,8 +56,16 @@ just build wukong_mecanum   # or: python3 builder/build.py wukong_mecanum
 just all                    # every model
 ```
 
-Each model lands in `dist/<model>/` and `dist/<model>.zip`. [docs/TECHNICAL_DOC.md](docs/TECHNICAL_DOC.md)
-explains how the builder works and how to add a model.
+Each model lands in `dist/<model>/` and `dist/<model>.zip`. The firmware takes Node.js, or Docker
+for `just firmware`:
+
+```sh
+just firmware               # dist/<model>/<model>-firmware.hex
+just sync-firmware          # pull the drivers' current release from the GeekEdu editor
+```
+
+[docs/TECHNICAL_DOC.md](docs/TECHNICAL_DOC.md) explains how the builder and the firmware build work,
+and how to add a model.
 
 ## Repository
 
@@ -58,12 +73,13 @@ explains how the builder works and how to add a model.
 |---|---|
 | `models/` | one Python script and one JSON file per model; `tracks.py` and `wonder_common.py` hold shared parts of the designs |
 | `builder/` | LDraw handling, three.js renders, instruction pages, the booklet, the Studio zip and the parts lists |
+| `firmware/` | the cars' micro:bit programs: one MakeCode project per car, `sync.py` (from the GeekEdu editor) and `build.sh` (hex files) |
 | `docs/` | [user guide](docs/USER_DOC.md), [technical documentation](docs/TECHNICAL_DOC.md), [user stories](docs/USER_STORIES.md) |
 | `.github/workflows/build.yml` | builds every model on each push; a `v*` tag publishes a release |
 
 ## Licences and credits
 
-- **Builder:** MIT, see [LICENSE](LICENSE).
+- **Builder and firmware:** MIT, see [LICENSE](LICENSE).
 - **Models and everything built from them:** CC BY-SA 4.0. The custom part files are CC BY 4.0. See
   [models/LICENSE.md](models/LICENSE.md).
 - **Designs:**

@@ -1,0 +1,29 @@
+{
+    "name": "wukong-mecanum",
+    "version": "0.1.0",
+    "description": "Bluetooth driver for the Wukong mecanum racer: four Geekservo 360 servos on S0-S3, phone joystick",
+    "dependencies": {
+        "core": "*",
+        "bluetooth": "*",
+        "wuKong": "github:elecfreaks/pxt-wukong#v1.6.0"
+    },
+    "files": [
+        "main.ts",
+        "README.md"
+    ],
+    "preferredEditor": "blocksprj",
+    "supportedTargets": [
+        "microbit"
+    ],
+    "yotta": {
+        "config": {
+            "microbit-dal": {
+                "bluetooth": {
+                    "open": 1,
+                    "whitelist": 0,
+                    "security_level": null
+                }
+            }
+        }
+    }
+}

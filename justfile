@@ -22,3 +22,11 @@ cover model:
 
 clean:
     rm -rf dist
+
+# the cars' micro:bit programs: dist/<model>/<model>-firmware.hex (Node.js in a container)
+firmware:
+    docker run --rm --user $(id -u):$(id -g) -e HOME=/tmp -v "$PWD":/w -w /w node:20 sh firmware/build.sh
+
+# copy the drivers' current release from the GeekEdu MakeCode editor into firmware/*/main.ts
+sync-firmware:
+    python3 firmware/sync.py

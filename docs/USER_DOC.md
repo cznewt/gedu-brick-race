@@ -44,7 +44,10 @@ add its connectors in Studio's Part Designer.
 
 ## Drive it
 
-1. Flash the car's program from the [README](../README.md#drive-it) onto its micro:bit.
+1. Flash the car's program: connect its micro:bit by USB and copy `<model>-firmware.hex` from the
+   release onto the `MICROBIT` drive. It scrolls its release (for example `r32`) and shows a heart.
+   To change the program, open it in the GeekEdu editor instead (links in the
+   [README](../README.md#drive-it)).
 2. Open the [phone joystick](https://makecode-microbit.geekedu.eu/joystick/) (Chrome on Android,
    Bluefy on iPhone) and connect to the car.
 3. Before the first race, lift the car and tap *Test motors*. Each motor turns forward and then
@@ -52,6 +55,10 @@ add its connectors in Studio's Part Designer.
    - On the tanks, a track that turns back first: flip that motor's setting at the top of the
      program (`LEFT` / `RIGHT` on the two-motor tank, `LEFT_FRONT`, `LEFT_REAR`, `RIGHT_FRONT`,
      `RIGHT_REAR` on the four-motor one).
-   - The mecanum car has no such settings: each servo must sit in its port (see the wiring
-     drawing). Its test steps 5 to 7 drive forward, slide right and turn right. A wheel that is
-     right in 5 but wrong in 6 is plugged into another motor's port.
+   - On the mecanum car, steps 1 to 4 turn the left front, right front, left rear and right rear
+     wheel. A different wheel turning means two servos are in each other's ports: swap those plugs
+     (see the wiring drawing).
+   - Steps 5 to 7 then drive forward, slide right and turn right. If every wheel is in its port and
+     the car still twists or slides the wrong way in step 6, a wheel is mounted the other way
+     round: set its `SLIDE` at the top of the program to -1 (`LF_SLIDE`, `RF_SLIDE`, `LR_SLIDE`,
+     `RR_SLIDE`).

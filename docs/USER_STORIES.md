@@ -8,5 +8,7 @@
   design and make my own instructions.
 - As a teacher, I want each car's program, wiring and phone joystick next to the model, so the class
   can drive what it built.
+- As a racer, I want the car's program as one file to copy onto the micro:bit, so I can drive the
+  car right after building it, without an editor.
 - As a maintainer, I want CI to build the booklets, Studio files and parts lists whenever a model's
   script changes, so every release matches the models.

@@ -10,6 +10,8 @@ each one into `dist/<slug>/`:
 - the Studio zip;
 - the BrickLink wanted list and the parts CSV.
 
+`firmware/` holds each car's micro:bit program, built into `dist/<slug>/<slug>-firmware.hex`.
+
 ## Build
 
 - Run `just setup` once, then `just build <script name>` or `just all`.
@@ -42,6 +44,16 @@ each one into `dist/<slug>/`:
 - `builder/customparts.py` must stay byte-identical to the site's parts: the same `.dat` files go
   out from both places.
 - Fixes that matter to both go to both.
+
+## Firmware
+
+- `firmware/<slug>/` is one MakeCode project per car: `main.ts`, `pxt.json`, `mkc.json`,
+  `README.md`.
+- The drivers are made in the GeekEdu MakeCode editor. Don't change `main.ts` here alone: change
+  the editor's driver, release the editor, then `just sync-firmware` and review the diff.
+- `pxt.json` follows the editor: `wuKong` at the version it bundles (v1.6.0), no `radio`, and the
+  *No Pairing Required* yotta config.
+- Build with `just firmware` (Docker) or `sh firmware/build.sh` (Node.js).
 
 ## Licences and docs
 
