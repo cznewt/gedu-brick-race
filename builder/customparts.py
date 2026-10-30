@@ -31,16 +31,16 @@ def _cross_axle(cx, top, height, cz, color=15):
 
 def _geekservo(output_color=72):
     # Kittenbot drawing: body 24 x 28.8 x 16 mm (x, y, z), 8 mm lugs at both ends in the middle
-    # 9.6 mm band, each with a pin hole across (z) and two down (8 mm apart), 32 mm apart; the
-    # cross axle output on top, 4 mm off centre (origin = body centre)
+    # 9.6 mm band, 32 mm apart, each with ONE pin hole, across (z): the drawing's two small holes
+    # down through each lug are screw holes, not pin holes (the real part, 2026-10-30: a design
+    # that ran an axle through them could not be built); the cross axle output on top, 4 mm off
+    # centre (origin = body centre)
     out = (_box(-12, -14.4, -8, 12, 14.4, 8)
            + _box(-20, -4.8, -8, -12, 4.8, 8)
            + _box(12, -4.8, -8, 20, 4.8, 8)
            + _cross_axle(4, -14.4, 5.6, 0, output_color))
     for x in (-40, 40):
         out += _disc((x, 0, -20.2), "z", 6) + _disc((x, 0, 20.2), "z", 6)
-        for z in (-10, 10):
-            out += _disc((x, -12.2, z), "y", 6) + _disc((x, 12.2, z), "y", 6)
     return out + _disc((10, -36.2, 0), "y", 8, output_color)
 
 
