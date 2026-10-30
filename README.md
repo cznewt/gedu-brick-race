@@ -1,0 +1,78 @@
+# GeekEdu LEGO Racing: Wukong cars
+
+Three LEGO cars of the [GeekEdu LEGO Racing Challenge](https://legorace.geekedu.eu/en/), each on an
+ElecFreaks Wukong board with a BBC micro:bit, written as LDraw models in Python. The builder turns
+them into building booklets and BrickLink Studio files.
+
+| | Model | Motors on the Wukong board | Steps | Parts |
+|---|---|---|---|---|
+| <img src="docs/images/wukong-mecanum.png" width="180" alt="Wukong mecanum racer"> | **wukong-mecanum**: the mecanum racer; drives, turns on the spot and slides sideways | 4 Geekservo 360° servos: S0 left front, S1 left rear, S2 right front, S3 right rear | 27 | 135 |
+| <img src="docs/images/wukong-tank-2-motors.png" width="180" alt="Wukong tank with two motors"> | **wukong-tank-2-motors**: the racer's body on tracks, driven at the back | 2 Geekservo 360° servos: S0 left, S1 right | 30 | 187 |
+| <img src="docs/images/wukong-tank-4-motors.png" width="180" alt="Wukong tank with four motors"> | **wukong-tank-4-motors**: the racer on tracks, all four motors driving | 4 Geekservo 360° servos: S0 left front, S1 left rear, S2 right front, S3 right rear | 28 | 189 |
+
+## Download
+
+Each [release](https://github.com/cznewt/gedu-lego-racing/releases) has these files for every model:
+
+- `<model>-studio.zip`: the model with its building steps for
+  [BrickLink Studio](https://www.bricklink.com/v3/studio/download.page), the custom parts it needs
+  (the electronics) and how to install them (`README.txt`, `README-cs.txt`).
+- `<model>-instructions.pdf`: the printable A4 building booklet.
+- `<model>-bricklink.xml`: a BrickLink wanted list of its LEGO parts.
+- `<model>-parts.csv`: every part with its colour and quantity, and a shop link for the electronics.
+- `<model>.zip`: all of the above plus the cover and every step picture.
+
+You can also turn the cars in 3D and build them step by step on [legorace.geekedu.eu](https://legorace.geekedu.eu/en/models/).
+
+## Drive it
+
+The programs are in the [GeekEdu MakeCode editor](https://makecode-microbit.geekedu.eu/), on the
+home page's *LEGO Racing Challenge* row:
+1. Flash a car's program onto its micro:bit.
+2. Drive it from a phone with the [phone joystick](https://makecode-microbit.geekedu.eu/joystick/):
+   Chrome on Android, Bluefy on iPhone.
+
+| Model | Program | Wiring |
+|---|---|---|
+| wukong-mecanum | [Elecfreak Wukong Mecanum Car (Bluetooth)](https://makecode-microbit.geekedu.eu/#example:/projects/elecfreak-wukong-mecanum-car-bluetooth) | [drawing](https://makecode-microbit.geekedu.eu/joystick/motors.html#mecanum) |
+| wukong-tank-2-motors | [Wukong Tank, 2 Servos (Bluetooth)](https://makecode-microbit.geekedu.eu/#example:/projects/geekedu-wukong-tank-2servo-bluetooth) | [drawing](https://makecode-microbit.geekedu.eu/joystick/motors.html#tank-2servo) |
+| wukong-tank-4-motors | [Wukong Tank, 4 Servos (Bluetooth)](https://makecode-microbit.geekedu.eu/#example:/projects/geekedu-wukong-tank-4servo-bluetooth) | [drawing](https://makecode-microbit.geekedu.eu/joystick/motors.html#tank-4servo) |
+
+## Build the files yourself
+
+You need Python 3.10+, the DejaVu fonts and network access while building: three.js comes from
+jsDelivr, and the LDraw parts from GitHub (cached in `~/.cache/geekedu-ldraw`).
+
+```sh
+just setup                  # pip install -r requirements.txt + Playwright's Chromium
+just build wukong_mecanum   # or: python3 builder/build.py wukong_mecanum
+just all                    # every model
+```
+
+Each model lands in `dist/<model>/` and `dist/<model>.zip`. [docs/TECHNICAL_DOC.md](docs/TECHNICAL_DOC.md)
+explains how the builder works and how to add a model.
+
+## Repository
+
+| Path | What |
+|---|---|
+| `models/` | one Python script and one JSON file per model; `tracks.py` and `wonder_common.py` hold shared parts of the designs |
+| `builder/` | LDraw handling, three.js renders, instruction pages, the booklet, the Studio zip and the parts lists |
+| `docs/` | [user guide](docs/USER_DOC.md), [technical documentation](docs/TECHNICAL_DOC.md), [user stories](docs/USER_STORIES.md) |
+| `.github/workflows/build.yml` | builds every model on each push; a `v*` tag publishes a release |
+
+## Licences and credits
+
+- **Builder:** MIT, see [LICENSE](LICENSE).
+- **Models and everything built from them:** CC BY-SA 4.0. The custom part files are CC BY 4.0. See
+  [models/LICENSE.md](models/LICENSE.md).
+- **Designs:**
+  - `wukong-mecanum` reproduces the mecanum car of the ElecFreaks Wonder Rugged Kit from its booklet;
+    the design is ElecFreaks'.
+  - The two tanks are GeekEdu designs on that car's body, with tracks from the Yahboom Building:bit
+    kit.
+- **LDraw parts:** they come from the [LDraw parts library](https://www.ldraw.org/) while building and
+  are not part of this repository. LDraw is a trademark of the Estate of James Jessiman.
+- **Trademarks:** LEGO® is a trademark of the LEGO Group, which does not sponsor, authorise or endorse
+  this project. ElecFreaks, Wukong, Geekservo, Yahboom, Building:bit, micro:bit and BrickLink are
+  trademarks of their owners.

@@ -1,0 +1,73 @@
+# Build every model (one job each) and keep its dist/ as a workflow artifact; a v* tag also
+# attaches the downloads to a GitHub Release.
+name: build
+
+on:
+  push:
+    branches: [main]
+    tags: ["v*"]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: build-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  models:
+    runs-on: ubuntu-latest
+    outputs:
+      list: ${{ steps.list.outputs.list }}
+    steps:
+      - uses: actions/checkout@v4
+      - id: list
+        run: echo "list=$(ls models/*.json | xargs -n1 basename | sed 's/\.json$//' | jq -R . | jq -sc .)" >> "$GITHUB_OUTPUT"
+
+  build:
+    needs: models
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        model: ${{ fromJSON(needs.models.outputs.list) }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+      - run: pip install -r requirements.txt
+      # the booklet's fonts; Chromium renders the steps with three.js (WebGL in software)
+      - run: sudo apt-get update && sudo apt-get install -y fonts-dejavu-core
+      - run: python -m playwright install --with-deps chromium
+      - uses: actions/cache@v4
+        with:
+          path: ~/.cache/geekedu-ldraw
+          key: ldraw-${{ matrix.model }}-${{ hashFiles('models/**', 'builder/**') }}
+          restore-keys: ldraw-
+      - run: python builder/build.py ${{ matrix.model }}
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ${{ matrix.model }}
+          path: dist/
+          if-no-files-found: error
+
+  release:
+    if: startsWith(github.ref, 'refs/tags/v')
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          path: dist
+          merge-multiple: true
+      - env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release create "$GITHUB_REF_NAME" --repo "$GITHUB_REPOSITORY" --title "$GITHUB_REF_NAME" --generate-notes \
+            dist/*.zip dist/*/*-studio.zip dist/*/*-instructions.pdf dist/*/*-bricklink.xml dist/*/*-parts.csv
