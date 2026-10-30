@@ -2,7 +2,7 @@
 
 ## What this repo holds
 
-Four LEGO car models (`models/<name>.py` + `<name>.json`) and the builder (`builder/`) that renders
+Four brick car models (`models/<name>.py` + `<name>.json`) and the builder (`builder/`) that renders
 each one into `dist/<slug>/`:
 - the cover and step pictures;
 - the A4 booklet;

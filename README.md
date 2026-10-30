@@ -1,6 +1,6 @@
-# GeekEdu LEGO Racing: Wukong cars
+# GeekEdu Brick Race: Wukong cars
 
-Four LEGO cars of the [GeekEdu LEGO Racing Challenge](https://legorace.geekedu.eu/en/), each on an
+Four brick cars of the [GeekEdu Brick Race](https://brick-race.geekedu.eu/en/), each on an
 ElecFreaks Wukong board with a BBC micro:bit, written as LDraw models in Python. The builder turns
 them into building booklets and BrickLink Studio files. Each car also has its micro:bit firmware
 for the phone joystick.
@@ -14,7 +14,7 @@ for the phone joystick.
 
 ## Download
 
-Each [release](https://github.com/cznewt/gedu-lego-racing/releases) has these files for every model:
+Each [release](https://github.com/cznewt/gedu-brick-race/releases) has these files for every model:
 
 - `<model>-studio.zip`: the model with its building steps for
   [BrickLink Studio](https://www.bricklink.com/v3/studio/download.page), the custom parts it needs
@@ -26,13 +26,13 @@ Each [release](https://github.com/cznewt/gedu-lego-racing/releases) has these fi
   `MICROBIT` drive.
 - `<model>.zip`: the files above except the firmware, plus the cover and every step picture.
 
-You can also turn the cars in 3D and build them step by step on [legorace.geekedu.eu](https://legorace.geekedu.eu/en/models/).
+You can also turn the cars in 3D and build them step by step on [brick-race.geekedu.eu](https://brick-race.geekedu.eu/en/models/).
 
 ## Drive it
 
 1. Flash the car's program onto its micro:bit. Either copy `<model>-firmware.hex` from a release
    onto the `MICROBIT` drive, or download it from the
-   [GeekEdu MakeCode editor](https://makecode-microbit.geekedu.eu/) (its *LEGO Racing Challenge*
+   [GeekEdu MakeCode editor](https://makecode-microbit.geekedu.eu/) (its *Brick Race*
    row), where you can also change it.
 2. Drive it from a phone with the [phone joystick](https://makecode-microbit.geekedu.eu/joystick/):
    Chrome on Android, Bluefy on iPhone.

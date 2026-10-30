@@ -8,7 +8,7 @@ The custom part files in a model's Studio zip (`parts/*.dat`, written by `builde
 are [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/), as their headers say. They are the
 same parts the GeekEdu site gives out, and CC BY 4.0 is what LDraw parts use.
 
-Attribution: GeekEdu, https://github.com/cznewt/gedu-lego-racing
+Attribution: GeekEdu, https://github.com/cznewt/gedu-brick-race
 
 - `wukong-mecanum` reproduces the mecanum car of the ElecFreaks Wonder Rugged Kit from its booklet.
   The design is ElecFreaks'.

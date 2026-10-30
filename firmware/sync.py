@@ -1,6 +1,6 @@
 """Copy each car's Bluetooth driver from the GeekEdu MakeCode editor into firmware/<model>/main.ts.
 
-The drivers are made and released in the editor (its LEGO Racing Challenge row), stamped with the
+The drivers are made and released in the editor (its Brick Race row), stamped with the
 editor's release (the micro:bit scrolls it at start). Run this after an editor release, check the
 diff, then build:
 

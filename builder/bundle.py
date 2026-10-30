@@ -109,7 +109,7 @@ def save_8bit(im, path):
     im.convert("RGB").quantize(colors=256, method=Image.Quantize.MEDIANCUT, dither=Image.Dither.NONE).save(path, optimize=True)
 
 
-REPO = "github.com/cznewt/gedu-lego-racing"
+REPO = "github.com/cznewt/gedu-brick-race"
 
 
 def build(model, meta, outdir, dest):

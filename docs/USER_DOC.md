@@ -2,7 +2,7 @@
 
 ## Get the files
 
-Open the latest [release](https://github.com/cznewt/gedu-lego-racing/releases) and download the files
+Open the latest [release](https://github.com/cznewt/gedu-brick-race/releases) and download the files
 of the car you want. The [README](../README.md#download) lists what each file is.
 
 ## Build from the booklet
