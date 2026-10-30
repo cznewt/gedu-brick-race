@@ -44,7 +44,9 @@ def cover_page(meta, outdir, url):
     d = ImageDraw.Draw(page)
     d.text((MARGIN, 90), meta["title"], font=ImageFont.truetype(FONT_BOLD, 64), fill="black")
     d.text((MARGIN, 175), meta["title_cs"], font=ImageFont.truetype(FONT, 44), fill=(80, 80, 80))
-    d.text((MARGIN, 250), meta["source"], font=ImageFont.truetype(FONT, 26), fill=(80, 80, 80))
+    f = ImageFont.truetype(FONT, 26)
+    for k, line in enumerate(wrap(d, meta["source"], f, A4[0] - 2 * MARGIN)[:3]):    # the page holds three lines
+        d.text((MARGIN, 250 + 34 * k), line, font=f, fill=(80, 80, 80))
     img = fit(trimmed(f"{outdir}/cover.png"), A4[0] - 2 * MARGIN, 1100)
     page.paste(img, ((A4[0] - img.width) // 2, 380))
     footer(page, 0, url)
