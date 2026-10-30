@@ -12,5 +12,5 @@ Attribution: GeekEdu, https://github.com/cznewt/gedu-lego-racing
 
 - `wukong-mecanum` reproduces the mecanum car of the ElecFreaks Wonder Rugged Kit from its booklet.
   The design is ElecFreaks'.
-- `wukong-tank-2-motors` and `wukong-tank-4-motors` are GeekEdu designs on that car's body, with
-  tracks from the Yahboom Building:bit kit.
+- `wukong-tank-2-motors`, `wukong-tank-4-motors` and `wukong-tank-4-motors-geared` are GeekEdu
+  designs on that car's body, with tracks from the Yahboom Building:bit kit.

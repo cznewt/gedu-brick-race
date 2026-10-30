@@ -157,7 +157,7 @@ bluetooth.onUartDataReceived(serial.delimiters(Delimiters.NewLine), function () 
     } else if (command == "I") {
         // the phone joystick asks what this is: model 1 (the Wukong mecanum racer) and this program's release
         control.raiseEvent(9102, 1)
-        control.raiseEvent(9103, 32)
+        control.raiseEvent(9103, 33)
     }
     // tell the phone joystick this command is done, so it sends the next one at once
     control.raiseEvent(9100, 2)
@@ -208,7 +208,7 @@ let RR_SLIDE = 1
 let STRAFE_GAIN = 1.1
 bluetooth.startUartService()
 // this program's release, so you can tell which one a micro:bit runs
-basic.showString("r32")
+basic.showString("r33")
 basic.showIcon(IconNames.Heart)
 // the motor test when T asked for it; else the joystick sends commands all the time: when they
 // stop (out of range, flat battery), stop

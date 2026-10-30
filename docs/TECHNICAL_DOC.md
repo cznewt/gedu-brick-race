@@ -94,7 +94,7 @@ each one scrolls the editor release it comes from.
 - **`models`** lists `models/*.json`.
 - **`build`** builds each model in its own job (Python 3.12, Playwright's Chromium, DejaVu fonts),
   caches the LDraw parts and uploads `dist/` as a workflow artifact named after the model.
-- **`firmware`** (Node.js 20) builds the three firmware hex files.
+- **`firmware`** (Node.js 20) builds the firmware hex files.
 - **`release`** runs only on a `v*` tag. It collects the artifacts and creates the GitHub Release
   with `<slug>.zip`, `-studio.zip`, `-instructions.pdf`, `-bricklink.xml`, `-parts.csv` and
   `-firmware.hex`.

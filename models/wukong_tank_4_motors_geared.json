@@ -1,0 +1,8 @@
+{
+  "slug": "wukong-tank-4-motors-geared",
+  "title": "Wukong tank with four servos, geared 2:1",
+  "title_cs": "Tank Wukong se čtyřmi servy, převod 2:1",
+  "source": "GeekEdu design: the Wukong tank with four servos with a 2:1 gear-up on each servo (16-tooth to 8-tooth)",
+  "description": "The four-servo Wukong tank, geared up: each Geekservo 360° servo turns its sprocket through a 16-tooth and an 8-tooth gear, so the tracks run twice as fast. Turn it in 3D, build it step by step or open it in BrickLink Studio.",
+  "description_cs": "Tank Wukong se čtyřmi servy s převodem do rychla: každé servo Geekservo 360° točí hnací kolo pásu přes ozubená kola se 16 a 8 zuby, takže pásy jedou dvakrát rychleji. Prohlédněte si ho ve 3D, postavte ho krok za krokem nebo ho otevřete v BrickLink Studiu."
+}

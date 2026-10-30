@@ -1,6 +1,6 @@
 # GeekEdu LEGO Racing: Wukong cars
 
-Three LEGO cars of the [GeekEdu LEGO Racing Challenge](https://legorace.geekedu.eu/en/), each on an
+Four LEGO cars of the [GeekEdu LEGO Racing Challenge](https://legorace.geekedu.eu/en/), each on an
 ElecFreaks Wukong board with a BBC micro:bit, written as LDraw models in Python. The builder turns
 them into building booklets and BrickLink Studio files. Each car also has its micro:bit firmware
 for the phone joystick.
@@ -10,6 +10,7 @@ for the phone joystick.
 | <img src="docs/images/wukong-mecanum.png" width="180" alt="Wukong mecanum racer"> | **wukong-mecanum**: the mecanum racer; drives, turns on the spot and slides sideways | 4 Geekservo 360° servos: S0 left front, S1 left rear, S2 right front, S3 right rear | 27 | 135 |
 | <img src="docs/images/wukong-tank-2-motors.png" width="180" alt="Wukong tank with two motors"> | **wukong-tank-2-motors**: the racer's body on tracks, driven at the back | 2 Geekservo 360° servos: S0 left, S1 right | 30 | 187 |
 | <img src="docs/images/wukong-tank-4-motors.png" width="180" alt="Wukong tank with four motors"> | **wukong-tank-4-motors**: the racer on tracks, all four motors driving | 4 Geekservo 360° servos: S0 left front, S1 left rear, S2 right front, S3 right rear | 28 | 189 |
+| <img src="docs/images/wukong-tank-4-motors-geared.png" width="180" alt="Wukong tank with four motors, geared 2:1"> | **wukong-tank-4-motors-geared**: the four-motor tank geared up 2:1 (a 16-tooth gear on each servo turns an 8-tooth one on the sprocket's axle): about the mecanum car's speed, half the pull. A prototype: the gears mesh 0.65 mm wider than LEGO's standard spacing | 4 Geekservo 360° servos: S0 left front, S1 left rear, S2 right front, S3 right rear | 30 | 219 |
 
 ## Download
 
@@ -36,6 +37,10 @@ You can also turn the cars in 3D and build them step by step on [legorace.geeked
 2. Drive it from a phone with the [phone joystick](https://makecode-microbit.geekedu.eu/joystick/):
    Chrome on Android, Bluefy on iPhone.
 
+A game controller drives too: an Android handheld's own sticks (such as the Retroid Pocket Flip 2)
+or a Bluetooth or USB gamepad, in Chrome. The left stick drives, the right stick slides the
+mecanum car. Connect is still a tap on the screen.
+
 The sources are in [`firmware/`](firmware/README.md), one MakeCode project per car, with its ports,
 settings and motor test.
 
@@ -44,6 +49,7 @@ settings and motor test.
 | wukong-mecanum | [Elecfreak Wukong Mecanum Car (Bluetooth)](https://makecode-microbit.geekedu.eu/#example:/projects/elecfreak-wukong-mecanum-car-bluetooth) | [drawing](https://makecode-microbit.geekedu.eu/joystick/motors.html#mecanum) |
 | wukong-tank-2-motors | [Wukong Tank, 2 Servos (Bluetooth)](https://makecode-microbit.geekedu.eu/#example:/projects/geekedu-wukong-tank-2servo-bluetooth) | [drawing](https://makecode-microbit.geekedu.eu/joystick/motors.html#tank-2servo) |
 | wukong-tank-4-motors | [Wukong Tank, 4 Servos (Bluetooth)](https://makecode-microbit.geekedu.eu/#example:/projects/geekedu-wukong-tank-4servo-bluetooth) | [drawing](https://makecode-microbit.geekedu.eu/joystick/motors.html#tank-4servo) |
+| wukong-tank-4-motors-geared | the four-motor tank's, every servo at -1 (the gears turn each track the other way): [`firmware/wukong-tank-4-motors-geared`](firmware/wukong-tank-4-motors-geared/README.md) | [drawing](https://makecode-microbit.geekedu.eu/joystick/motors.html#tank-4servo) |
 
 ## Build the files yourself
 
@@ -85,7 +91,7 @@ and how to add a model.
 - **Designs:**
   - `wukong-mecanum` reproduces the mecanum car of the ElecFreaks Wonder Rugged Kit from its booklet;
     the design is ElecFreaks'.
-  - The two tanks are GeekEdu designs on that car's body, with tracks from the Yahboom Building:bit
+  - The tanks are GeekEdu designs on that car's body, with tracks from the Yahboom Building:bit
     kit.
 - **LDraw parts:** they come from the [LDraw parts library](https://www.ldraw.org/) while building and
   are not part of this repository. LDraw is a trademark of the Estate of James Jessiman.

@@ -232,8 +232,9 @@ def body(m):
     m.step()
 
 
-def servos(m, ends=(-1, 1)):
-    """Step 22: the servos at the given ends of the car (-1 back, 1 front)."""
+def servos(m, ends=(-1, 1), outer_pins=True):
+    """Step 22: the servos at the given ends of the car (-1 back, 1 front). outer_pins=False leaves
+    the outer lugs' lower pins out (the geared tank's axles run through those lugs)."""
     # 22 (booklet 25, upside down): the servos on the rails' end pins, outputs out; a pin in
     #     each lug's other end
     for fx in ends:
@@ -241,13 +242,14 @@ def servos(m, ends=(-1, 1)):
             m.add("geekedu-ef-geekservo-360.dat", LIME, (fx * SERVO_X, SERVO_Y, side * RAIL_Z), servo(fx, side))
     for fx in ends:
         for side in (-1, 1):
-            for x in (80, 160):
+            for x in (80, 160) if outer_pins else (80,):
                 m.add("2780.dat", BLACK, (fx * x, 70, side * RAIL_Z), PIN_DOWN)
     m.step()
 
 
-def underside(m, ends=(-1, 1)):
-    """Steps 23-24: the beams under the car, across only at the ends that have servos."""
+def underside(m, ends=(-1, 1), outer_beams=True):
+    """Steps 23-24: the beams under the car, across only at the ends that have servos.
+    outer_beams=False leaves out the two at the car's ends (on the outer lugs' lower pins)."""
     # 23 (booklet 26): two 15-beams under the middle on the hood's and the back panel's cross
     #     block pins, a pin down in each one's holes 4 and 12
     for z in (-20, 20):
@@ -257,7 +259,7 @@ def underside(m, ends=(-1, 1)):
                 m.add("2780.dat", BLACK, (x, 70, z), PIN_DOWN)
     m.step()
     # 24 (booklet 27): four 9-beams across on the servo lug pins and those pins
-    for x in (-160, -80, 80, 160):
+    for x in (-160, -80, 80, 160) if outer_beams else (-80, 80):
         if np.sign(x) in ends:
             m.add("40490.dat", LIME, (x, 80, 0))
     m.step()

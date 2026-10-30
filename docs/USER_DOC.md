@@ -50,6 +50,9 @@ add its connectors in Studio's Part Designer.
    [README](../README.md#drive-it)).
 2. Open the [phone joystick](https://makecode-microbit.geekedu.eu/joystick/) (Chrome on Android,
    Bluefy on iPhone) and connect to the car.
+   - On an Android handheld with sticks, or with a gamepad, the controller drives too once you
+     press any of its buttons: the left stick (or the D-pad) drives, the right stick slides.
+   - Connect stays a tap on the screen.
 3. Before the first race, lift the car and tap *Test motors*. Each motor turns forward and then
    back, and the car shows the motor's number.
    - On the tanks, a track that turns back first: flip that motor's setting at the top of the

@@ -2,7 +2,7 @@
 
 ## What this repo holds
 
-Three LEGO car models (`models/<name>.py` + `<name>.json`) and the builder (`builder/`) that renders
+Four LEGO car models (`models/<name>.py` + `<name>.json`) and the builder (`builder/`) that renders
 each one into `dist/<slug>/`:
 - the cover and step pictures;
 - the A4 booklet;
@@ -35,8 +35,10 @@ each one into `dist/<slug>/`:
   - titles and descriptions in EN and CS;
   - `source`;
   - optionally `booklet_parts`, which `build.py` checks the parts against.
-- The tanks import `wukong_mecanum` for the racer's body. A change there changes all three models:
-  rebuild them all.
+- The tanks import `wukong_mecanum` for the racer's body. A change there changes every model:
+  rebuild them all. Its `servos()` and `underside()` take options (the geared tank leaves the
+  outer lugs' lower pins and the end 9-beams out); their defaults must keep the other models as
+  they are.
 
 ## Shared with the GeekEdu site
 
@@ -54,6 +56,8 @@ each one into `dist/<slug>/`:
 - `pxt.json` follows the editor: `wuKong` at the version it bundles (v1.6.0), no `radio`, and the
   *No Pairing Required* yotta config.
 - Build with `just firmware` (Docker) or `sh firmware/build.sh` (Node.js).
+- `firmware/sync.py` can change a driver's settings for one folder: the geared tank's is the
+  four-motor driver with all four servo settings at -1, because the gears reverse the tracks.
 
 ## Licences and docs
 
