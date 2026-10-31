@@ -3,9 +3,10 @@ hood, wings, horns, lights and bent beams (the user, 2026-10-31: "clean uncommon
 aesthetic"). Two side rails (a lime 15-beam on two yellow 5-beams) carry two 9-beams and two
 5 x 7 frames; the four green Geekservo 360 servos hang on the rails' end pins, outputs
 outwards, with lime beams under them. The wheels are not on the servos: each servo's output
-turns a 12-tooth double bevel gear that drives a second one on an 8L axle, held by a pin with
-pin hole on a 7-beam under the car's end (the two 7-beams of an end tied by a 5-beam), and the
-mecanum wheel sits on that axle past the ring. The gears' axles are 31.6 LDU apart, 1.6 LDU
+turns a 12-tooth double bevel gear that drives a second one on an 8L axle, in the ring of a pin
+with pin hole that hangs from an L-beam; the L-beam lies on a 7-beam two studs outboard of the
+lug line (clear of the gear: nothing may lie right under it), which bridges under the lug and the
+tie carry; the mecanum wheel sits on that axle past the ring. The gears' axles are 31.6 LDU apart, 1.6 LDU
 (0.65 mm) more than LEGO's 30 for two 12-tooth gears, so the teeth mesh 2.4 LDU deep instead of
 4. A gear pair turns each wheel the other way round: the driver's DIRECTION setting is -1 (the
 mecanum wheels' pattern, left-hand wheels at front left and back right, stays). The Wukong board
@@ -22,14 +23,16 @@ LIME = 27
 FLAT_X = R(("y", 90))                                      # beam along X, holes vertical
 ACROSS = R(("y", 90))                                      # pin or axle along Z
 PIN_HOLE_ON_Z_DOWN = np.array([[0, 0, 1], [1, 0, 0], [0, 1, 0]])   # 15100: pin hole along Z, pin down
+PIN_HOLE_ON_Z_UP = np.array([[0, 0, -1], [-1, 0, 0], [0, 1, 0]])   # 15100: pin hole along Z, pin up
 WHEEL = {(1, 1): "geekedu-ef-mecanum-wheel-left.dat", (-1, -1): "geekedu-ef-mecanum-wheel-left.dat",
          (1, -1): "geekedu-ef-mecanum-wheel-right.dat", (-1, 1): "geekedu-ef-mecanum-wheel-right.dat"}
 SERVO_X, SERVO_Y, RAIL_Z = 120, 50, 80                     # servo centres (on the rails' end pins)
 OUT_X, OUT_Y = SERVO_X + 10, SERVO_Y                       # the outputs sit 10 off the servos' centres
-RING_X, RING_Y = SERVO_X + 40, SERVO_Y + 10                # the pin with pin hole on the 7-beam's outer hole
+RING_X, RING_Y = SERVO_X + 40, SERVO_Y + 10                # the axle's bearing: a pin with pin hole under the L-beam's arm
+ARM_X = SERVO_X + 80                                       # the racer's 7-beams: two studs outboard of the lug line, clear of the 12-tooth gears
 BEAM_Z = RAIL_Z + 20                                       # the 7-beams' middles: holes from 40 to 160, the lug pin in 80
-TIE_Z = RAIL_Z - 40                                        # the 7-beams' innermost holes (z = 40): the 5-beam's end pins
-RING_Z = RAIL_Z + 80                                       # the 7-beams' outer holes (z = 160)
+TIE_Z = RAIL_Z - 40                                        # the tie's bridges (z = 40)
+RING_Z = RAIL_Z + 80                                       # the 7-beams' outer holes, the L-beams' corners (z = 160)
 GEAR_Z = RAIL_Z + 46                                       # the gears' middle, the one on the output against the servo (z = 126)
 WHEEL_Z = 231.5                                            # wheel centre: inner plate against the half bush past the ring
 # along each ring axle (left side, the right mirrored): a bush clear of the lug (96..116), the
@@ -41,8 +44,8 @@ BUSH_Z, SPACER_Z, OUTER_SPACER_Z, AXLE_Z = 106, 141, 174, 176
 # left, low; the board from the front left
 VIEW = dict(az=125, el=28, cover_az=130, cover_el=30,
             step_views={1: (330, 20), 2: (150, 20), 3: (65, 35), 4: (65, 35), 5: (65, 30), 6: (270, 35),
-                        7: (60, -35), 8: (160, -40), 9: (160, -35), 10: (150, 12), 11: (150, 12),
-                        12: (160, 8), 13: (150, 10), 14: (130, 30), 15: (140, 35)})
+                        7: (60, -35), 8: (160, -40), 9: (160, -35), 10: (160, -35), 11: (150, 12),
+                        12: (150, 12), 13: (150, 15), 14: (160, 8), 15: (150, 10), 16: (130, 30), 17: (140, 35)})
 
 
 def frame(x, y):
@@ -135,34 +138,60 @@ def underside(m, ends=(-1, 1), outer_beams=True):
     m.step()
 
 
-def end_beams(m, ends=(-1, 1)):
-    """Step 10: the geared cars' bearings: (x4) a 7-beam under each end of the car on the outer
-    lug's pin, its outer end past the servo; a pin up in its innermost hole, a pin with pin hole
-    down in its outer hole, the hole along the car's axles."""
+def end_beams(m, arm_x, ends=(-1, 1)):
+    """Steps 10-11: the geared cars' bearing frame under each servo's outer end. Nothing may lie
+    under the gear on the axle (it reaches 7 LDU below the axle line's beam top on the racer), so
+    the beam along the car sits a stud or two outboard of the gears, at arm_x, and bridges across
+    bring the lug's and the tie's pins to it; the ring hangs from an L-beam above (bearings())."""
+    cx = (RING_X + arm_x) / 2                               # the bridges' middle: holes at 160 and arm_x
+    # 10: (x4) two 3-beams across under each servo's outer end: one on the lug's pin, one in line
+    #     with the tie (a pin up in its hole under the tie); a pin up in each one's outer hole, the
+    #     lug's one a blue 3L pin (it reaches the L-beam too)
     for fx in ends:
         for s in (1, -1):
-            m.add("32524.dat", LIME, (fx * RING_X, 80, BEAM_Z * s))
+            for z in (TIE_Z, RAIL_Z):
+                m.add("32523.dat", LIME, (fx * cx, 80, z * s), FLAT_X)
             m.add("2780.dat", BLACK, (fx * RING_X, 70, TIE_Z * s), PIN_DOWN)
-            m.add("15100.dat", BLACK, (fx * RING_X, RING_Y, RING_Z * s), PIN_HOLE_ON_Z_DOWN)
+            m.add("2780.dat", BLACK, (fx * arm_x, 70, TIE_Z * s), PIN_DOWN)
+            m.add("6558.dat", BLUE, (fx * arm_x, 60, RAIL_Z * s), PIN_DOWN)
+    m.step()
+    # 11: (x4) a 7-beam along the car on those pins, outboard of the gears, its outer end past the
+    #     servo
+    for fx in ends:
+        for s in (1, -1):
+            m.add("32524.dat", LIME, (fx * arm_x, 60, BEAM_Z * s))
     m.step()
 
 
 def ties(m, ends=(-1, 1)):
-    """Step 11: (x2) a 5-beam across the two 7-beams' inner ends, on those pins: on one pin a
-    beam could turn."""
+    """Step 12: (x2) a 5-beam across the two bridges under the tie pins: the frames of one end are
+    one piece."""
     for fx in ends:
         m.add("32316.dat", LIME, (fx * RING_X, 60, 0))
     m.step()
 
 
+def bearings(m, arm_x, ends=(-1, 1)):
+    """Step 13: (x4) a 3 x 5 L-beam flat on the 7-beam: its long arm on the blue pin and two more,
+    its short arm over the axle line; a pin with pin hole up into the arm's hole there, its ring
+    the axle's bearing, the hole along the car's axles."""
+    for fx in ends:
+        for s in (1, -1):
+            m.add("32526.dat", LIME, (fx * arm_x, 40, RING_Z * s), frame((-fx, 0, 0), (0, s * fx, 0)))
+            for z in (RING_Z - 40, RING_Z):
+                m.add("2780.dat", BLACK, (fx * arm_x, 50, z * s), PIN_DOWN)
+            m.add("15100.dat", BLACK, (fx * RING_X, RING_Y, RING_Z * s), PIN_HOLE_ON_Z_UP)
+    m.step()
+
+
 def drive(m):
-    """Steps 12-14: the 1:1 gear pairs, the axles and the mecanum wheels."""
-    # 12: a 12-tooth double bevel gear pushed all the way onto each servo's output
+    """Steps 14-16: the 1:1 gear pairs, the axles and the mecanum wheels."""
+    # 14: a 12-tooth double bevel gear pushed all the way onto each servo's output
     for fx in (-1, 1):
         for s in (1, -1):
             m.add("32270.dat", LBG, (fx * OUT_X, OUT_Y, GEAR_Z * s), mesh(fx, 12, 12)[0])
     m.step()
-    # 13: (x4) an 8L axle through the ring: inside it a half bush against the ring, the second
+    # 15: (x4) an 8L axle through the ring: inside it a half bush against the ring, the second
     #     12-tooth gear in the first one's teeth and a bush; outside it a half bush
     for fx in (-1, 1):
         turn = mesh(fx, 12, 12)[1]                          # the axle's cross as the gear's hole
@@ -173,7 +202,7 @@ def drive(m):
             m.add("4265c.dat", LBG, (fx * RING_X, RING_Y, SPACER_Z * s), turn)
             m.add("4265c.dat", LBG, (fx * RING_X, RING_Y, OUTER_SPACER_Z * s), turn)
     m.step()
-    # 14: the mecanum wheels on the axles against the half bushes; left-hand wheels at front
+    # 16: the mecanum wheels on the axles against the half bushes; left-hand wheels at front
     #     left and back right (the kit's top view shows the rollers)
     for fx in (-1, 1):
         for side in (-1, 1):
@@ -195,8 +224,9 @@ def build():
     body(m)
     servos(m)
     underside(m, outer_beams=False)
-    end_beams(m)
+    end_beams(m, ARM_X)
     ties(m)
+    bearings(m, ARM_X)
     drive(m)
     board(m)
     return m
