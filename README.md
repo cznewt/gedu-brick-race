@@ -14,6 +14,17 @@ for the phone joystick.
 | <img src="docs/images/wukong-tank-4-motors.png" width="180" alt="Wukong tank with four motors"> | **wukong-tank-4-motors**: the racer's body on tracks, all four motors driving, the sprockets on the servos | 4 Geekservo 360° servos: S0 left front, S1 left rear, S2 right front, S3 right rear | [12, online](https://legorace.geekedu.eu/en/models/wukong-tank-4servo/) · [PDF](https://github.com/cznewt/gedu-brick-race/releases/latest/download/wukong-tank-4-motors-instructions.pdf) | 119 |
 | <img src="docs/images/wukong-tank-4-motors-geared.png" width="180" alt="Wukong tank with four motors, geared 2:1"> | **wukong-tank-4-motors-geared**: the four-motor tank geared up 2:1: a 16-tooth gear on each servo turns an 8-tooth one on an axle in the racer's bearing frames; the sprocket sits on that axle; a low idler in the middle of each belt shapes it like the Building:bit tank's, so the tank stands on the idlers. About the mecanum car's speed, half the pull. A prototype: the gears mesh 0.65 mm wider than LEGO's standard spacing, and the car is 21.2 cm wide over the tracks (the Building:bit links are 5 studs wide, so they start outboard of the gears and of the bearing frames). The drive is steps 10-18 | 4 Geekservo 360° servos: S0 left front, S1 left rear, S2 right front, S3 right rear | [20, online](https://legorace.geekedu.eu/en/models/wukong-tank-4servo-geared/) · [PDF](https://github.com/cznewt/gedu-brick-race/releases/latest/download/wukong-tank-4-motors-geared-instructions.pdf) | 216 |
 
+## Users' models
+
+Cars built by people at the races live in `models/users/<slug>/`: photos, a short README with the
+builder's name and what drives it, and, once the beams and pins are measured, the model script and
+booklet like the four above. Send photos from the front, a side, the top and the bottom, the kit the
+parts come from, and which driver you flash, and we draw it.
+
+| | Model | Builder | Drive |
+|---|---|---|---|
+| <img src="models/users/compact-mecanum-car/photo-01.jpg" width="180" alt="Compact mecanum car"> | [**compact-mecanum-car**](models/users/compact-mecanum-car/): four small Geekservo 360s in a tight frame, black 60 mm mecanum wheels straight on them, the board upright | Aleš Komárek | the mecanum driver, DIRECTION 1 |
+
 ## Download
 
 Each [release](https://github.com/cznewt/gedu-brick-race/releases) has these files for every model:
