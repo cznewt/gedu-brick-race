@@ -1,5 +1,5 @@
 """Render a model's build steps, cover and part icons."""
-import os, sys, json, numpy as np
+import os, shutil, sys, json, numpy as np
 import ldr, render, custom
 
 def trim(paths, pad=24):
@@ -60,6 +60,9 @@ def fit_zoom(mpd, cam, outdir, zoom=0.62):
 
 def render_model(m, outdir, az=125, el=30, cover_az=125, cover_el=28, step_views=None):
     """step_views: {step number: (azimuth, elevation)} for steps the booklet shows from another side."""
+    # a shorter model leaves the longer one's pictures behind: the booklet listed them (2026-10-31)
+    for sub in ("steps", "icons", "masks", "tutorial"):
+        shutil.rmtree(f"{outdir}/{sub}", ignore_errors=True)
     os.makedirs(f"{outdir}/steps", exist_ok=True); os.makedirs(f"{outdir}/icons", exist_ok=True)
     extra = model_files(m)
     full = m.mpd(extra_files=extra)
