@@ -13,7 +13,8 @@ import urllib.request
 
 EDITOR = "https://makecode-microbit.geekedu.eu"
 DRIVERS = {                                   # firmware folder: the editor's project, settings changed here
-    "wukong-mecanum": ("elecfreak-wukong-mecanum-car-bluetooth", {}),
+    # the 1:1 gear pairs turn each wheel the other way round: the mecanum driver with DIRECTION -1 (editor r35)
+    "wukong-mecanum": ("elecfreak-wukong-mecanum-car-bluetooth", {"DIRECTION": -1}),
     "wukong-tank-2-motors": ("geekedu-wukong-tank-2servo-bluetooth", {}),
     "wukong-tank-4-motors": ("geekedu-wukong-tank-4servo-bluetooth", {}),
     # the 2:1 gears turn each track the other way round: the four-servo driver with every servo at -1

@@ -35,7 +35,8 @@ each one into `dist/<slug>/`:
   - titles and descriptions in EN and CS;
   - `source`;
   - optionally `booklet_parts`, which `build.py` checks the parts against.
-- The tanks import `wukong_mecanum` for the racer's body. A change there changes every model:
+- The tanks import `wukong_mecanum` for the racer's body (steps 1-6), servos (7), underside (8-9) and,
+  the geared ones, its end beams and ties (10-11). A change there changes every model:
   rebuild them all. Its `underside()` takes an option (the geared tank leaves the end 9-beams out
   and puts a 7-beam per side there); the default must keep the other models as they are.
 - The Geekservo's lugs have one pin hole each, across the servo. Do not design around any other

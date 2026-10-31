@@ -89,10 +89,10 @@ function mecanum (ahead: number, side: number, rotate: number) {
     left_rear = (ahead - LR_SLIDE * sideways + rotate) * SPEED / denominator
     right_front = (ahead - RF_SLIDE * sideways - rotate) * SPEED / denominator
     right_rear = (ahead + RR_SLIDE * sideways - rotate) * SPEED / denominator
-    wuKong.mecanumSpeed(wuKong.WheelList.LeftFront_def, Math.round(left_front))
-    wuKong.mecanumSpeed(wuKong.WheelList.LeftRear_def, Math.round(left_rear))
-    wuKong.mecanumSpeed(wuKong.WheelList.RightFront_def, Math.round(right_front))
-    wuKong.mecanumSpeed(wuKong.WheelList.RightRear_def, Math.round(right_rear))
+    wuKong.mecanumSpeed(wuKong.WheelList.LeftFront_def, Math.round(left_front * DIRECTION))
+    wuKong.mecanumSpeed(wuKong.WheelList.LeftRear_def, Math.round(left_rear * DIRECTION))
+    wuKong.mecanumSpeed(wuKong.WheelList.RightFront_def, Math.round(right_front * DIRECTION))
+    wuKong.mecanumSpeed(wuKong.WheelList.RightRear_def, Math.round(right_rear * DIRECTION))
 }
 // the motor test (T, the phone joystick's Test motors button): each motor turns forward, then back, with its number on the display
 function testMotor (motor: number) {
@@ -108,13 +108,13 @@ function testMotor (motor: number) {
 // 1: left front (S0), 2: right front (S2), 3: left rear (S1), 4: right rear (S3)
 function runMotor (motor: number, speed: number) {
     if (motor == 1) {
-        wuKong.mecanumSpeed(wuKong.WheelList.LeftFront_def, speed)
+        wuKong.mecanumSpeed(wuKong.WheelList.LeftFront_def, speed * DIRECTION)
     } else if (motor == 2) {
-        wuKong.mecanumSpeed(wuKong.WheelList.RightFront_def, speed)
+        wuKong.mecanumSpeed(wuKong.WheelList.RightFront_def, speed * DIRECTION)
     } else if (motor == 3) {
-        wuKong.mecanumSpeed(wuKong.WheelList.LeftRear_def, speed)
+        wuKong.mecanumSpeed(wuKong.WheelList.LeftRear_def, speed * DIRECTION)
     } else {
-        wuKong.mecanumSpeed(wuKong.WheelList.RightRear_def, speed)
+        wuKong.mecanumSpeed(wuKong.WheelList.RightRear_def, speed * DIRECTION)
     }
 }
 function testMotors () {
@@ -157,7 +157,7 @@ bluetooth.onUartDataReceived(serial.delimiters(Delimiters.NewLine), function () 
     } else if (command == "I") {
         // the phone joystick asks what this is: model 1 (the Wukong mecanum racer) and this program's release
         control.raiseEvent(9102, 1)
-        control.raiseEvent(9103, 33)
+        control.raiseEvent(9103, 35)
     }
     // tell the phone joystick this command is done, so it sends the next one at once
     control.raiseEvent(9100, 2)
@@ -204,11 +204,13 @@ let LF_SLIDE = 1
 let RF_SLIDE = 1
 let LR_SLIDE = 1
 let RR_SLIDE = 1
+// DIRECTION: -1 when every wheel turns on a gear pair (the Brick Race racer), which turns it the other way round
+let DIRECTION = -1
 // STRAFE_GAIN: how much more a slide gets than driving ahead (gm0: 1.1, the rollers lose some)
 let STRAFE_GAIN = 1.1
 bluetooth.startUartService()
 // this program's release, so you can tell which one a micro:bit runs
-basic.showString("r33")
+basic.showString("r35")
 basic.showIcon(IconNames.Heart)
 // the motor test when T asked for it; else the joystick sends commands all the time: when they
 // stop (out of range, flat battery), stop
