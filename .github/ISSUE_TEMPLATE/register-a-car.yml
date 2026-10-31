@@ -1,0 +1,66 @@
+name: Register a car
+description: Your own Brick Race car, to be drawn and published with the others
+title: "Car: "
+labels: ["users-model"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for racing with us. Fill in what you know; we draw the car from your photos and
+        send you the renders to confirm before the booklet is built. See
+        [CONTRIBUTING.md](../blob/main/CONTRIBUTING.md) for what the photos should show.
+  - type: input
+    id: builder
+    attributes:
+      label: Your name or nickname
+      description: As it should appear on the car's page.
+    validations:
+      required: true
+  - type: input
+    id: car
+    attributes:
+      label: The car's name
+      placeholder: Compact mecanum car
+    validations:
+      required: true
+  - type: textarea
+    id: description
+    attributes:
+      label: What it is
+      description: How it drives and steers, what is special about it.
+    validations:
+      required: true
+  - type: textarea
+    id: parts
+    attributes:
+      label: Parts
+      description: The kits the parts come from and anything not in them.
+      placeholder: Wonder Building Kit beams and pins, four Geekservo 360 (9 g), black 60 mm mecanum wheels from ...
+    validations:
+      required: true
+  - type: input
+    id: electronics
+    attributes:
+      label: Board, motors and ports
+      placeholder: Wukong; Geekservo 360 on S0 left front, S1 left rear, S2 right front, S3 right rear
+    validations:
+      required: true
+  - type: input
+    id: driver
+    attributes:
+      label: Driver and settings
+      placeholder: Elecfreak Wukong Mecanum Car (Bluetooth), DIRECTION 1
+  - type: textarea
+    id: photos
+    attributes:
+      label: Photos
+      description: Drag the pictures in here. Top, bottom, front, one side, and one from the front left.
+    validations:
+      required: true
+  - type: checkboxes
+    id: licence
+    attributes:
+      label: Licence
+      options:
+        - label: The model and the pictures may be published under CC BY-SA 4.0 with my name.
+          required: true

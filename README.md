@@ -18,8 +18,8 @@ for the phone joystick.
 
 Cars built by people at the races live in `models/users/<slug>/`: photos, a short README with the
 builder's name and what drives it, and, once the beams and pins are measured, the model script and
-booklet like the four above. Send photos from the front, a side, the top and the bottom, the kit the
-parts come from, and which driver you flash, and we draw it.
+booklet like the four above. To register yours, open an issue with the *Register a car* template or
+use the form on the site: [CONTRIBUTING.md](CONTRIBUTING.md) says what photos we need.
 
 | | Model | Builder | Drive |
 |---|---|---|---|
