@@ -99,9 +99,10 @@ def _cylinder(p0, w, r, length, color, ends=True):
     return out
 
 
-def _mecanum(hand):
+def _mecanum(hand, scale=1.0):
     # ElecFreaks mecanum wheel, 80 mm across and 42 mm wide; axle (cross hole) along Z like LEGO
-    # wheels; ten black rollers at 45 degrees, hand = +1 or -1 for the two mirror wheels
+    # wheels; ten black rollers at 45 degrees, hand = +1 or -1 for the two mirror wheels;
+    # scale 0.75 draws the 60 mm wheel of a 9g servo (users' compact car)
     width = 105.0
     out = _cylinder((0, 0, -width / 2 + 4), (0, 0, 1), 22, width - 8, 16)
     for z0 in (-width / 2 + 4, width / 2 - 10):
@@ -115,10 +116,37 @@ def _mecanum(hand):
         w = (tangent[0] * s, tangent[1] * s, hand * s)
         p0 = tuple(88 * radial[i] - 40 * w[i] for i in range(3))
         out += _cylinder(p0, w, 13, 80, 0)
+    if scale != 1.0:
+        out = _scaled(out, scale)
     return out
 
 
+def _scaled(lines, k):
+    # scale an LDraw fragment about the origin: every coordinate and matrix of its type 1-4 lines
+    out = []
+    for line in lines:
+        f = line.split()
+        if f and f[0] in ('1', '2', '3', '4'):
+            n = 14 if f[0] == '1' else 2 + 3 * int(f[0])
+            vals = [float(v) * k for v in f[2:n]] if f[0] != '1' else [float(v) * k for v in f[2:5]] + [float(v) * k for v in f[5:14]]
+            out.append(' '.join(f[:2] + [f'{v:g}' for v in vals] + f[n:]))
+        else:
+            out.append(line)
+    return out
+
+
+def _microbit():
+    # the site's part (lego_models/customparts.py): the board 52 x 42 mm, its gold edge, the 5 x 5 LEDs
+    return (_box(-26, -1.6, 0, 26, 0, 42, 0)
+            + _box(-26, -1.7, 34, 26, -1.6, 42, 334)
+            + [l for x in range(5) for y in range(5)
+               for l in _box(-8 + x * 4 - 0.8, -2.4, 8 + y * 4 - 0.8, -8 + x * 4 + 0.8, -1.6, 8 + y * 4 + 0.8, 4)])
+
+
 PARTS = {
+    "geekedu-microbit-v2": dict(
+        title="BBC micro:bit V2", color=0, vendor="Micro:bit Educational Foundation",
+        shop="https://microbit.org/buy/", geometry=_microbit),
     "geekedu-ef-geekservo-360": dict(
         title="ElecFreaks Geekservo 360° servo (green)", color=27, vendor="ElecFreaks",
         shop="https://shop.elecfreaks.com/search?q=geekservo%20360",
@@ -131,6 +159,14 @@ PARTS = {
         title="ElecFreaks mecanum wheel 80 mm (right)", color=14, vendor="ElecFreaks",
         shop="https://shop.elecfreaks.com/products/elecfreaks-micro-bit-wonder-rugged-car-kit-without-micro-bit-board",
         geometry=lambda: _mecanum(-1)),
+    "geekedu-mecanum-wheel-60-left": dict(
+        title="Mecanum wheel 60 mm for a 9g servo (left)", color=0, vendor="generic",
+        shop="https://www.hwkitchen.cz/",
+        geometry=lambda: _mecanum(1, 0.75)),
+    "geekedu-mecanum-wheel-60-right": dict(
+        title="Mecanum wheel 60 mm for a 9g servo (right)", color=0, vendor="generic",
+        shop="https://www.hwkitchen.cz/",
+        geometry=lambda: _mecanum(-1, 0.75)),
     "geekedu-ef-wukong-board": dict(
         title="ElecFreaks Wukong board on its 7 x 5 LEGO base", color=71, vendor="ElecFreaks",
         shop="https://www.elecfreaks.com/wukong-board-with-lego-holder-for-micro-bit.html",

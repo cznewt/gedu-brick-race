@@ -1,0 +1,8 @@
+{
+ "slug": "compact-mecanum-car",
+ "title": "Compact mecanum car",
+ "title_cs": "Kompaktní auto s mecanum koly",
+ "source": "A users' model by Aleš Komárek, drawn from his photos",
+ "description": "A users' model by Aleš: four Geekservo 360 servos at the corners of a tight frame of lime, yellow and white beams, the 60 mm mecanum wheels straight on them, the Wukong board upright at the back with the micro:bit on top. Driven by the racer's driver. Turn it in 3D, build it step by step or open it in BrickLink Studio.",
+ "description_cs": "Model od Aleše: čtyři serva Geekservo 360 v rozích těsného rámu z limetkových, žlutých a bílých nosníků, mecanum kola 60 mm přímo na nich, deska Wukong nastojato vzadu s micro:bitem nahoře. Řídí ho ovladač závodního auta. Prohlédněte si ho ve 3D, postavte ho krok za krokem nebo ho otevřete v BrickLink Studiu."
+}
