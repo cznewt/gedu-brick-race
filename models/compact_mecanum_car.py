@@ -5,20 +5,22 @@ top, a lime 7-beam across each pair of outer lugs and a yellow 11-beam along eac
 inner lugs; under the 11-beams, between the servos, a white 7-beam a side and a yellow 7-beam
 across at the back third; under the servos, a lime 5-beam under each rear one with a white
 7-beam across the back below them, and the yellow U under the front ones: two 9-beams and a
-7-beam across the front below them, blue 3L pins at the corners. The Wukong board lies over
-the back on the lime beam, its micro:bit standing up at the back (the mount is still to be
-confirmed with the builder). Driven by the racer's driver, DIRECTION 1. World: front = +X, left = +Z, Y points
+7-beam across the front below them, blue 3L pins at the corners. The Wukong board stands up
+across the car's middle, its base down between the white beams, the micro:bit lying on top
+pointing forward; a grey 5-beam screwed to its edge holds it (the builder's word, 2026-11-04). Driven by the racer's driver, DIRECTION 1. World: front = +X, left = +Z, Y points
 down; the lug line at z = 60, the servos' centres at x = 140."""
 import numpy as np
 
 import ldr
 from ldr import R
-from wonder_common import BLACK, BLUE, LBG, PIN_DOWN, ROT_Y180, YELLOW, microbit
-from wukong_mecanum import FLAT_X, LIME, servo
+from wonder_common import BLACK, BLUE, LBG, PIN_DOWN, YELLOW, microbit
+from wukong_mecanum import FLAT_X, LIME, frame, servo
 
 WHITE = 15
 SX, SY, SZ = 140, 50, 60                                   # servo centres; lugs at x = 100 and 180, their holes y 30..70
 WHEEL_Z = 140                                              # the wheel's hub on the output past the servo's face (z = 96)
+UPRIGHT = frame((0, -1, 0), (-1, 0, 0))                   # the board's base across the car, slot edge up, components forwards
+BEAM_UP = R(("z", 90))                                    # a beam standing along Y, holes along X
 WHEEL = {(1, 1): "geekedu-mecanum-wheel-60-left.dat", (-1, -1): "geekedu-mecanum-wheel-60-left.dat",
          (1, -1): "geekedu-mecanum-wheel-60-right.dat", (-1, 1): "geekedu-mecanum-wheel-60-right.dat"}
 VIEW = dict(az=130, el=30, cover_az=130, cover_el=30,
@@ -90,14 +92,13 @@ def underside(m):
 
 
 def board(m):
-    """Step 8: the Wukong board flat over the back, its slot backwards so the micro:bit stands up
-    facing the back; two pins up from the back lime beam into its base (the mount is to be
-    confirmed with the builder)."""
-    pos = (-140, 0, 0)
-    for z in (-20, 20):
-        m.add("2780.dat", BLACK, (-180, 10, z), PIN_DOWN)
-    m.add("geekedu-ef-wukong-board.dat", LBG, pos, ROT_Y180)
-    microbit(m, pos, ROT_Y180)
+    """Step 8: the Wukong board standing up across the car's middle, its base down between the
+    white beams, the micro:bit lying on top pointing forward, display up; a grey 5-beam screwed
+    to the board's left edge stands on the white beam (the builder's mount: screws, no pin)."""
+    pos = (-20, 20, 0)
+    m.add("geekedu-ef-wukong-board.dat", LBG, pos, UPRIGHT)
+    microbit(m, pos, UPRIGHT)
+    m.add("32316.dat", LBG, (-20, -20, 60), BEAM_UP)
     m.step()
 
 
