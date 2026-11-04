@@ -135,6 +135,20 @@ def _scaled(lines, k):
     return out
 
 
+def _beam(n, axle_end=False):
+    # a thick liftarm n studs long along Z with vertical holes, like LDraw's beams: the Wonder Building Kit's 1 x 4
+    # beams, which LEGO does not make; the axle version has a cross hole at its +Z end
+    half = n * 4
+    out = _box(-3.8, -3.9, -half, 3.8, 3.9, half, 16)
+    for i in range(n):
+        z = (i - (n - 1) / 2) * 20
+        if axle_end and i == n - 1:
+            out += _cross_axle(0, -3.9, 0.2, z / 2.5, 0) + _cross_axle(0, 4.1, 0.2, z / 2.5, 0)
+        else:
+            out += _disc((0, -9.95, z), "y", 6) + _disc((0, 9.95, z), "y", 6)
+    return out
+
+
 def _microbit():
     # the site's part (lego_models/customparts.py): the board 52 x 42 mm, its gold edge, the 5 x 5 LEDs
     return (_box(-26, -1.6, 0, 26, 0, 42, 0)
@@ -159,6 +173,14 @@ PARTS = {
         title="ElecFreaks mecanum wheel 80 mm (right)", color=14, vendor="ElecFreaks",
         shop="https://shop.elecfreaks.com/products/elecfreaks-micro-bit-wonder-rugged-car-kit-without-micro-bit-board",
         geometry=lambda: _mecanum(-1)),
+    "geekedu-beam-1x4": dict(
+        title="Technic beam 1 x 4 (Wonder Building Kit)", color=14, vendor="ElecFreaks",
+        shop="https://shop.elecfreaks.com/products/elecfreaks-wonder-building-kit",
+        geometry=lambda: _beam(4)),
+    "geekedu-beam-1x4-axle": dict(
+        title="Technic beam 1 x 4 with an axle hole at one end (Wonder Building Kit)", color=1, vendor="ElecFreaks",
+        shop="https://shop.elecfreaks.com/products/elecfreaks-wonder-building-kit",
+        geometry=lambda: _beam(4, True)),
     "geekedu-mecanum-wheel-60-left": dict(
         title="Mecanum wheel 60 mm for a 9g servo (left)", color=0, vendor="generic",
         shop="https://www.hwkitchen.cz/",
