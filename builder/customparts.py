@@ -187,7 +187,7 @@ PARTS = {
         title="Technic beam 1 x 4 (Wonder Building Kit)", color=14, vendor="ElecFreaks",
         shop="https://shop.elecfreaks.com/products/elecfreaks-wonder-building-kit",
         geometry=lambda: _beam(4)),
-    "geekedu-beam-L-2x4-axle": dict(
+    "geekedu-beam-l-2x4-axle": dict(
         title="Technic beam 2 x 4 L-shape with an axle hole (Wonder Building Kit)", color=1, vendor="ElecFreaks",
         shop="https://shop.elecfreaks.com/products/elecfreaks-wonder-building-kit",
         geometry=_beam_L),

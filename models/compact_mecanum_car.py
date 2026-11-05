@@ -100,7 +100,7 @@ def front_pieces(m):
     blue pin, its second hole pointing in, its cross hole backwards; a black pin down through its
     third hole into the front outer lug."""
     for s, rot in ((-1, L_RIGHT), (1, L_LEFT)):
-        m.add("geekedu-beam-L-2x4-axle.dat", BLUE, (150, TOP, s * SZ), rot)
+        m.add("geekedu-beam-l-2x4-axle.dat", BLUE, (150, TOP, s * SZ), rot)
         m.add("2780.dat", BLACK, (140, TOP + 10, s * SZ), PIN_DOWN)
     m.step()
 
