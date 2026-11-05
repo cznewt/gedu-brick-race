@@ -149,6 +149,16 @@ def _beam(n, axle_end=False):
     return out
 
 
+def _beam_L():
+    # the Wonder Building Kit's blue L piece at the compact car's front corners: a 1 x 4 arm along Z (holes at
+    # z = -30 .. 30, the last one a cross hole) and a second hole beside its first one, one stud along +X
+    out = _beam(4, True)
+    out += _box(-3.8, -3.9, -15.2, 11.8, 3.9, -8.8, 16)          # the short arm, from the long arm's edge out to the hole
+    out += _box(11.8, -3.9, -15.2, 19.8, 3.9, -8.8, 16)
+    out += _disc((20, -9.95, -30), "y", 6) + _disc((20, 9.95, -30), "y", 6)
+    return out
+
+
 def _microbit():
     # the site's part (lego_models/customparts.py): the board 52 x 42 mm, its gold edge, the 5 x 5 LEDs
     return (_box(-26, -1.6, 0, 26, 0, 42, 0)
@@ -177,6 +187,10 @@ PARTS = {
         title="Technic beam 1 x 4 (Wonder Building Kit)", color=14, vendor="ElecFreaks",
         shop="https://shop.elecfreaks.com/products/elecfreaks-wonder-building-kit",
         geometry=lambda: _beam(4)),
+    "geekedu-beam-L-2x4-axle": dict(
+        title="Technic beam 2 x 4 L-shape with an axle hole (Wonder Building Kit)", color=1, vendor="ElecFreaks",
+        shop="https://shop.elecfreaks.com/products/elecfreaks-wonder-building-kit",
+        geometry=_beam_L),
     "geekedu-beam-1x4-axle": dict(
         title="Technic beam 1 x 4 with an axle hole at one end (Wonder Building Kit)", color=1, vendor="ElecFreaks",
         shop="https://shop.elecfreaks.com/products/elecfreaks-wonder-building-kit",
